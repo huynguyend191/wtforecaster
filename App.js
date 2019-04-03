@@ -7,13 +7,33 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
-export default class App extends Component {
+class App extends Component {
+  state = {
+    coord: null
+  }
+  getLocation = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        coord: position.coords
+      })
+    }, error => {
+      alert("Please check your GPS or connection and retry");
+    })
+  }
   render() {
+    let coord = null;
+    if (this.state.coord) {
+      coord = (
+        <Text>{this.state.coord.latitude} - {this.state.coord.longitude}</Text>
+      )
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to WtForecaster</Text>
+        <Button title="Get Location" onPress={this.getLocation} />
+        {coord}
       </View>
     );
   }
@@ -32,3 +52,6 @@ const styles = StyleSheet.create({
     margin: 10,
   }
 });
+
+
+export default App;
