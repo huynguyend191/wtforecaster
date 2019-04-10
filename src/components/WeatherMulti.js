@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class WeatherNews extends Component {
+class WeatherMulti extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#fff' }}>
-        <Text>News</Text>
+        <Text>Multi weather</Text>
       </View>
     );
   }
 }
 
-export default WeatherNews;
+export default WeatherMulti;
