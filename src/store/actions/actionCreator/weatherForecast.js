@@ -23,7 +23,7 @@ export const fetchWeatherDailyFailed = () => {
 export const fetchWeatherDaily = (coords) => {
   return dispatch => {
     dispatch(startFetchingWeatherDaily());
-    axios.get(`http://192.168.43.203:3000/weather/Daily?longitude=${coords.longitude}&latitude=${coords.latitude}`)
+    axios.get(`http://10.90.252.125:3000/weather/Daily?longitude=${coords.longitude}&latitude=${coords.latitude}`)
     .then(result => {
       console.log(result);
       dispatch(fetchWeatherDailySucceeded(result.data.weatherInfor))

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchWeatherDaily } from '../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import weatherIconName from '../utils/weatherIconName';
 
 class WeatherForecast extends Component {
   componentDidMount() {
@@ -31,7 +32,7 @@ class WeatherForecast extends Component {
           <View>
             <Text>{currentDayWeather.date}</Text>
             <View style={styles.mainDisplay}>
-              <WeatherIcon name="weather-rainy" size={50} />
+              <WeatherIcon name={weatherIconName[currentDayWeather.icon]} size={50} />
               <Text>Temperature: {currentDayWeather.temperatureDaynight}</Text>
             </View>
             <Text>Humidity: {currentDayWeather.humidity}</Text>
