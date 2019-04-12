@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "195557048661-4djbor1ov02nek418h1ugsk40t6ov62b.apps.googleusercontent.com",
+          "client_id": "195557048661-n277h8io2t1c162uv670ssobvs01ob7v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wtforecaster",
-            "certificate_hash": "5af2b641faa5cbfc295fe5838630ec45c29f6591"
+            "certificate_hash": "8869cf5805374dbe83f5af066b4d35792c0e7d92"
           }
         },
         {
