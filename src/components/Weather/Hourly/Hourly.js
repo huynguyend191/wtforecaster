@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchWeatherDaily } from '../store/actions';
+import { fetchDailyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import weatherIconName from '../utils/weatherIconName';
+import weatherIconName from '../../../utils/weatherIconName';
 
-class WeatherForecast extends Component {
+class Hourly extends Component {
   componentDidMount() {
-    this.onFetchWeatherDaily();
+    this.onFetchDailyWeather();
   }
-  onFetchWeatherDaily = () => {
+  onFetchDailyWeather = () => {
     navigator.geolocation.getCurrentPosition(positon => {
-      console.log(positon)
       const coords =  {
         latitude: positon.coords.latitude,
         longitude: positon.coords.longitude
       };
-      this.props.fetchWeatherDaily(coords);
+      this.props.fetchDailyWeather(coords);
     }, error => {
       alert('Please turn on your GPS and Internet connection!');
     })
@@ -61,7 +60,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchWeatherDaily: (coords) => dispatch(fetchWeatherDaily(coords))
+    fetchDailyWeather: (coords) => dispatch(fetchDailyWeather(coords))
   }
 }
 
@@ -80,4 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeatherForecast);
+export default connect(mapStateToProps, mapDispatchToProps)(Hourly);

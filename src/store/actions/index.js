@@ -1,3 +1,3 @@
 export {
-  fetchWeatherDaily
-} from './actionCreator/weatherForecast'
+  fetchDailyWeather
+} from './actionCreator/dailyWeather';

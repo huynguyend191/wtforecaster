@@ -7,18 +7,18 @@ const initialState = {
 
 const reducer = ((state = initialState, action) => {
   switch(action.type) {
-    case actionTypes.START_FETCHING_WEATHER_DAILY:
+    case actionTypes.START_FETCHING_DAILY_WEATHER:
       return {
         ...state,
         loadingDailyWeather: true
       };
-    case actionTypes.FETCH_WEATHER_DAILY_SUCCEEDED:
+    case actionTypes.FETCH_DAILY_WEATHER_SUCCEEDED:
       return {
         ...state,
         loadingDailyWeather: false,
         dailyWeather: action.dailyWeather
       };
-    case actionTypes.FETCH_WEATHER_DAILY_FAILED:
+    case actionTypes.FETCH_DAILY_WEATHER_FAILED:
       return {
         ...state,
         loadingDailyWeather: false
