@@ -44,7 +44,7 @@ class Hourly extends Component {
     }
     return (
       <View style={styles.weatherContainer}>
-        <Text>Weather Forecast</Text>
+        <Text>Weather Forecast Hourly</Text>
         {displayWeatherInfo}
       </View>
     );

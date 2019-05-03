@@ -8,14 +8,17 @@ class News extends Component {
 
   render() {
     return (
-      <Text>News</Text>
+      <View style={styles.container}>
+        <Text>News</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   }
 });
 

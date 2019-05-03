@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchCurrentWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,10 +22,11 @@ class Current extends Component {
     })
   }
   render() {
-    let displayWeatherInfo = <Text>Loading...</Text>
+    let displayWeatherInfo = (
+      <ActivityIndicator size="large" color="white" />
+    )
     if (!this.props.loadingCurrentWeather ) {
       if (this.props.currentWeather) {
-        console.log(this.props.currentWeather)
         const currentWeather = this.props.currentWeather;
         displayWeatherInfo = (
           <View>
@@ -36,7 +37,34 @@ class Current extends Component {
             <Text style={styles.realTemp}>Real Feel: {Math.round(currentWeather.current.apparentTemp)}&#176;</Text>
             <Text style={styles.summary}>{currentWeather.current.summary}</Text>
             <View style={styles.detailInfo}>
-
+              <View style={styles.detailItem}>
+                <View style={styles.detailLabel}> 
+                  <WeatherIcon name="water-percent" color="white" size={19} />
+                  <Text style={styles.detailLabelText}>Humidity</Text>
+                </View>
+                <Text style={styles.detailData}>{Number(currentWeather.current.humidity) * 100}%</Text>
+              </View>
+              <View style={styles.detailItem}>
+                <View style={styles.detailLabel}> 
+                  <WeatherIcon name="white-balance-sunny" color="white" size={19} />
+                  <Text style={styles.detailLabelText}>UV index</Text>
+                </View>
+                <Text style={styles.detailData}>{currentWeather.current.uvIndex}</Text>
+              </View>
+              <View style={styles.detailItem}>
+                <View style={styles.detailLabel}> 
+                  <WeatherIcon name="wind-turbine" color="white" size={19} />
+                  <Text style={styles.detailLabelText}>Wind speed</Text>
+                </View>
+                <Text style={styles.detailData}>{currentWeather.current.windSpeed} m/s</Text>
+              </View>
+              <View style={styles.detailItem}>
+                <View style={styles.detailLabel}> 
+                  <WeatherIcon name="weather-rainy" color="white" size={19} />
+                  <Text style={styles.detailLabelText}>Rain probability</Text>
+                </View>
+                <Text style={styles.detailData}>{Number(currentWeather.current.precipProbability) * 100}%</Text>
+              </View>
             </View>
           </View>
         )
@@ -70,17 +98,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    padding: 25
+    paddingVertical: 40,
+    flex: 1
   },
   mainDisplay: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    marginBottom: 20
   },
   temp: {
     color: 'white',
-    fontSize: 60,
+    fontSize: 70,
     marginLeft: 20
   },
   summary: {
@@ -97,9 +127,26 @@ const styles = StyleSheet.create({
   detailInfo: {
     borderTopWidth: 1,
     borderTopColor: 'white',
-    marginTop: 20
-  }
-  
+    marginTop: 30,
+    paddingVertical: 20
+  },
+  detailItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10
+  },
+  detailLabel: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  detailLabelText: {
+    color: 'white',
+    marginLeft: 5
+  },
+  detailData: {
+    color: 'white',
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Current);

@@ -8,14 +8,17 @@ class Places extends Component {
 
   render() {
     return (
-      <Text>Places</Text>
+      <View style={styles.container}>
+        <Text>Places</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   }
 });
 

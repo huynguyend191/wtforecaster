@@ -1,31 +1,24 @@
 import { createMaterialTopTabNavigator } from 'react-navigation';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import React from 'react';
 import Daily from './Daily/Daily';
 import Current from './Current/Current';
 import Hourly from './Hourly/Hourly';
 
 const Weather = createMaterialTopTabNavigator({
   Current: Current,
-  Daily: Daily,
-  Hourly: Hourly
+  Hourly: Hourly,
+  Daily: Daily
 },
 {
   tabBarOptions: {
-    activeTintColor: 'blue',
-    inactiveTintColor: 'gray',
-    labelStyle: {
-      fontSize: 12,
-      margin: 0
-    },
     style: {
       backgroundColor: 'white',
-      height: 35,
+      height: 2,
     },
     indicatorStyle: {
       borderBottomColor: '#6047d9',
       borderBottomWidth: 2,
-    }
+    },
+    showLabel: false
 }}
 );
 
