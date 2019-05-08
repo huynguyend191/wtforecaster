@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, RefreshControl, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchCurrentWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 
 class Current extends Component {
+
   componentDidMount() {
     this.onFetchCurrentWeather();
   }
@@ -21,6 +22,10 @@ class Current extends Component {
       alert('Please turn on your GPS and Internet connection!');
     })
   }
+  onRefresh = () => {
+    this.onFetchCurrentWeather();
+  }
+
   render() {
     let displayWeatherInfo = (
       <ActivityIndicator size="large" color="white" />
@@ -29,7 +34,15 @@ class Current extends Component {
       if (this.props.currentWeather) {
         const currentWeather = this.props.currentWeather;
         displayWeatherInfo = (
-          <View>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onRefresh}
+              />
+            }
+            style={styles.weather}
+          >
+            <Text style={styles.date}>{new Date(currentWeather.current.time).toDateString()}</Text>
             <View style={styles.mainDisplay}>
               <WeatherIcon name={weatherIconName[currentWeather.current.icon]} size={120} color="white" />
               <Text style={styles.temp}>{Math.round(currentWeather.current.temp)}&#8451;</Text>
@@ -63,10 +76,10 @@ class Current extends Component {
                   <WeatherIcon name="weather-rainy" color="white" size={19} />
                   <Text style={styles.detailLabelText}>Rain probability</Text>
                 </View>
-                <Text style={styles.detailData}>{Number(currentWeather.current.precipProbability) * 100}%</Text>
+                <Text style={styles.detailData}>{Math.round(Number(currentWeather.current.precipProbability) * 100)}%</Text>
               </View>
             </View>
-          </View>
+          </ScrollView>
         )
       }
       
@@ -98,7 +111,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    paddingVertical: 40,
+    flex: 1
+  },
+  weather: {
     flex: 1
   },
   mainDisplay: {
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
   realTemp: {
     color: 'white',
     textAlign: 'right',
-    fontSize: 12
+    fontSize: 13
   },
   detailInfo: {
     borderTopWidth: 1,
@@ -147,6 +162,13 @@ const styles = StyleSheet.create({
   detailData: {
     color: 'white',
   },
+  date: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: 20,
+    marginTop: 50
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Current);
