@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
   weatherContainer: {
     display: 'flex',
     justifyContent: 'center',
-    width: '100%',
     alignItems: 'center',
     flex: 1
   },

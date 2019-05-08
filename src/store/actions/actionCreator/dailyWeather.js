@@ -25,11 +25,9 @@ export const fetchDailyWeather = (coords) => {
     dispatch(startFetchingDailyWeather());
     axios.get(`/weather/Daily?longitude=${coords.longitude}&latitude=${coords.latitude}`)
     .then(result => {
-      // console.log(result);
       dispatch(fetchDailyWeatherSucceeded(result.data.weatherInfor))
     })
     .catch(error => {
-      console.log(error)
       dispatch(fetchDailyWeatherFailed());
     })
   }

@@ -5,3 +5,7 @@ export {
 export {
   fetchCurrentWeather
 } from './actionCreator/currentWeather';
+
+export {
+  fetchNews
+} from './actionCreator/news';
