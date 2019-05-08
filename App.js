@@ -7,7 +7,19 @@ import { GoogleSignin } from 'react-native-google-signin';
 
 
 class App extends Component {
+  state = {
+    backgroundColor: ['#6047d9', '#4c9dd5', '#4ac2d2']
+  }
+  changeColor = () => {
+    const currentHour = new Date(Date.now()).getHours();
+    if (currentHour > 18 || currentHour < 5) {
+      this.setState({
+        backgroundColor: ['#454879', '#567AAC', '#379DB3']
+      })
+    }
+  }
   componentDidMount() {
+    this.changeColor();
     console.disableYellowBox = true;
     GoogleSignin.configure({
       webClientId: '195557048661-j5v9p9ji2o5q0sr5nomob3gihi9m05qa.apps.googleusercontent.com'
@@ -16,7 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <LinearGradient colors={['#6047d9', '#4c9dd5', '#4ac2d2']} style={styles.container}>
+      <LinearGradient colors={this.state.backgroundColor} style={styles.container}>
         <MainNavigation />
       </LinearGradient>
     );

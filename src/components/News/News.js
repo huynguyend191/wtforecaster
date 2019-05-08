@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
-// import WeatherForecast from './src/components/WeatherForecast';
+import {StyleSheet, Text, View, Button, Linking} from 'react-native';
 
 
 
@@ -10,6 +9,7 @@ class News extends Component {
     return (
       <View style={styles.container}>
         <Text>News</Text>
+        <Button title="Click me" onPress={ ()=>{ Linking.openURL('https://google.com')}} />
       </View>
     );
   }
@@ -18,7 +18,6 @@ class News extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
   }
 });
 

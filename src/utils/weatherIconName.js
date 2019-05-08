@@ -8,7 +8,7 @@ const weatherIconName = {
   'fog': 'weather-fog',
   'cloudy': 'weather-cloudy',
   'partly-cloudy-day': 'weather-partlycloudy',
-  'parly-cloudy-night': 'weather-cloudy',
+  'partly-cloudy-night': 'weather-cloudy',
   'hail': 'weather-hail',
   'thunderstorm': 'weather-lighting-rain',
   'tornado': 'weather-hurricane'
