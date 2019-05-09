@@ -1,42 +1,36 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchDailyWeather } from '../../../store/actions';
+import { fetchHourlyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 
 class Hourly extends Component {
   componentDidMount() {
-    this.onFetchDailyWeather();
+    this.onFetchHourlyWeather();
   }
-  onFetchDailyWeather = () => {
+  onFetchHourlyWeather = () => {
     navigator.geolocation.getCurrentPosition(positon => {
       const coords =  {
         latitude: positon.coords.latitude,
         longitude: positon.coords.longitude
       };
-      this.props.fetchDailyWeather(coords);
+      this.props.fetchHourlyWeather(coords);
     }, error => {
       alert('Please turn on your GPS and Internet connection!');
     })
-    
   }
   render() {
-    let displayWeatherInfo = <Text>Loading...</Text>
-    if (!this.props.loadingDailyWeather ) {
-      if (this.props.dailyWeather) {
-        // console.log(this.props.dailyWeather.dailyForecast)
-        const currentDayWeather = this.props.dailyWeather.dailyForecast[0];
+    let displayWeatherInfo = (
+      <ActivityIndicator size="large" color="white" />
+    );
+    if (!this.props.loadingHourlyWeather ) {
+      console.log(this.props.hourlyWeather)
+      if (this.props.hourlyWeather) {
+
         displayWeatherInfo = (
           <View>
-            <Text>{currentDayWeather.date}</Text>
-            <View style={styles.mainDisplay}>
-              <WeatherIcon name={weatherIconName[currentDayWeather.icon]} size={50} />
-              <Text>Temperature: {currentDayWeather.temperatureDaynight}</Text>
-            </View>
-            <Text>Humidity: {currentDayWeather.humidity}</Text>
-            <Text>Wind speed: {currentDayWeather.windSpeed}</Text>
-            <Text>UV index: {currentDayWeather.uvIndex}</Text>
+           
           </View>
         )
       }
@@ -53,14 +47,14 @@ class Hourly extends Component {
 
 const mapStateToProps = state => {
   return {
-    dailyWeather: state.weatherReducer.dailyWeather,
-    loadingDailyWeather: state.weatherReducer.loadingDailyWeather
+    hourlyWeather: state.weatherReducer.hourlyWeather,
+    loadingHourlyWeather: state.weatherReducer.loadingHourlyWeather
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDailyWeather: (coords) => dispatch(fetchDailyWeather(coords))
+    fetchHourlyWeather: (coords) => dispatch(fetchHourlyWeather(coords))
   }
 }
 

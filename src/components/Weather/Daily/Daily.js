@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchDailyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,21 +22,14 @@ class Daily extends Component {
     
   }
   render() {
-    let displayWeatherInfo = <Text>Loading...</Text>
+    let displayWeatherInfo = (
+      <ActivityIndicator size="large" color="white" />
+    );
     if (!this.props.loadingDailyWeather ) {
       if (this.props.dailyWeather) {
-        // console.log(this.props.dailyWeather.dailyForecast)
-        const currentDayWeather = this.props.dailyWeather.dailyForecast[0];
         displayWeatherInfo = (
           <View>
-            <Text>{currentDayWeather.date}</Text>
-            <View style={styles.mainDisplay}>
-              <WeatherIcon name={weatherIconName[currentDayWeather.icon]} size={50} />
-              <Text>Temperature: {currentDayWeather.temperatureDaynight}</Text>
-            </View>
-            <Text>Humidity: {currentDayWeather.humidity}</Text>
-            <Text>Wind speed: {currentDayWeather.windSpeed}</Text>
-            <Text>UV index: {currentDayWeather.uvIndex}</Text>
+            
           </View>
         )
       }

@@ -7,5 +7,9 @@ export {
 } from './actionCreator/currentWeather';
 
 export {
+  fetchHourlyWeather
+} from './actionCreator/hourlyWeather';
+
+export {
   fetchNews
 } from './actionCreator/news';

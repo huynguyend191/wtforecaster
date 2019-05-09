@@ -29,7 +29,7 @@ class Current extends Component {
   render() {
     let displayWeatherInfo = (
       <ActivityIndicator size="large" color="white" />
-    )
+    );
     if (!this.props.loadingCurrentWeather ) {
       if (this.props.currentWeather) {
         const currentWeather = this.props.currentWeather;

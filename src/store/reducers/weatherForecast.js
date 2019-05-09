@@ -4,7 +4,9 @@ const initialState = {
   dailyWeather: null,
   loadingDailyWeather: false,
   currentWeather: null,
-  loadingCurrentWeather: false
+  loadingCurrentWeather: false,
+  hourlyWeather: null,
+  loadingHourlyWeather: false
 }
 
 const reducer = ((state = initialState, action) => {
@@ -25,7 +27,8 @@ const reducer = ((state = initialState, action) => {
         ...state,
         loadingDailyWeather: false
       };
-      case actionTypes.START_FETCHING_CURRENT_WEATHER:
+
+    case actionTypes.START_FETCHING_CURRENT_WEATHER:
       return {
         ...state,
         loadingCurrentWeather: true
@@ -40,6 +43,23 @@ const reducer = ((state = initialState, action) => {
       return {
         ...state,
         loadingCurrentWeather: false
+      };
+
+      case actionTypes.START_FETCHING_HOURLY_WEATHER:
+      return {
+        ...state,
+        loadingHourlyWeather: true
+      };
+    case actionTypes.FETCH_HOURLY_WEATHER_SUCCEEDED:
+      return {
+        ...state,
+        loadingHourlyWeather: false,
+        hourlyWeather: action.hourlyWeather
+      };
+    case actionTypes.FETCH_HOURLY_WEATHER_FAILED:
+      return {
+        ...state,
+        loadingHourlyWeather: false
       };
     
     default:
