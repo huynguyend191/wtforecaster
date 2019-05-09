@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Linking, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 import { connect } from 'react-redux';
 import { fetchNews } from '../../store/actions';
 import NewsItem from './NewsItem';
 
 class News extends Component {
+  
   componentDidMount() {
     this.onRefresh();
   }
@@ -50,7 +51,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingTop: 5,
   }
 });
 

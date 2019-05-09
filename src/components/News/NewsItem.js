@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { View, Text, StyleSheet, TouchableHighlight , Image, Linking } from 'react-native';
 
-const NewsItem = (props) => (
-  <TouchableHighlight  onPress={ () => {Linking.openURL(props.url)}} underlayColor="gray">
-    <View style={styles.newsItem}>
-      <Image source={{uri: props.thumbnail}} style={styles.thumbnail} />
-      <Text style={styles.summary}>{props.summary}</Text>
-    </View>
-  </TouchableHighlight >
+class NewsItem extends Component {
 
-);
+  render() {
+    return (
+      <TouchableHighlight  onPress={ () => {Linking.openURL(this.props.url)}} underlayColor="gray">
+        <View style={styles.newsItem}>
+          <Text style={styles.summary}>{this.props.summary}</Text>
+          <Image source={{uri: this.props.thumbnail}} style={styles.thumbnail} />
+        </View>
+      </TouchableHighlight >
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   newsItem: {
@@ -17,14 +21,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
+    backgroundColor: 'white',
+    padding: 5,
+    alignItems: 'center',
+    marginBottom: 5,
+    borderRadius: 10
   },
   thumbnail: {
-    width: '40%'
+    width: '40%',
+    height: '80%'
   },
   summary: {
     flexWrap: 'wrap',
     width: '60%',
-    backgroundColor: 'white',
     padding: 5
   }
 })
