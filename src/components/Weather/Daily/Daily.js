@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchDailyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,17 +27,30 @@ class Daily extends Component {
     );
     if (!this.props.loadingDailyWeather ) {
       if (this.props.dailyWeather) {
+        const dailyWeather = this.props.dailyWeather;
         displayWeatherInfo = (
-          <View>
-            
-          </View>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onFetchDailyWeather}
+              />
+            }
+            style={styles.weather}
+          >
+            <View style={styles.dailySummary}>
+              <Text style={styles.summaryTitle}>DAILY SUMMARY</Text>
+              <View style={styles.summaryContent}>
+                <WeatherIcon name={weatherIconName[dailyWeather.dailyIcon]} size={50} color="white" />
+                <Text style={styles.summary}>{dailyWeather.dailySummary}</Text>
+              </View>
+            </View>
+          </ScrollView>
         )
       }
       
     }
     return (
       <View style={styles.weatherContainer}>
-        <Text>Weather Forecast</Text>
         {displayWeatherInfo}
       </View>
     );
@@ -62,14 +75,39 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   },
-  mainDisplay: {
+  weather: {
+    flex: 1,
+  },
+  dailySummary: {
+    marginVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    width: '100%',
+    flex: 1,
+    display: 'flex',
+    paddingVertical: 15
+  },
+  summaryTitle: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  summaryContent: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    justifyContent: 'space-between'
+  },
+  summary: {
+    color: 'white',
+    flexWrap: 'wrap',
+    width: '80%'
   }
+ 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Daily);

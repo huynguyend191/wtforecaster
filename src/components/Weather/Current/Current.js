@@ -22,9 +22,6 @@ class Current extends Component {
       alert('Please turn on your GPS and Internet connection!');
     })
   }
-  onRefresh = () => {
-    this.onFetchCurrentWeather();
-  }
 
   render() {
     let displayWeatherInfo = (
@@ -37,7 +34,7 @@ class Current extends Component {
           <ScrollView
             refreshControl={
               <RefreshControl
-                onRefresh={this.onRefresh}
+                onRefresh={this.onFetchCurrentWeather}
               />
             }
             style={styles.weather}
