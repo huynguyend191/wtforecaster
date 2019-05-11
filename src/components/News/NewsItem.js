@@ -5,7 +5,7 @@ class NewsItem extends Component {
 
   render() {
     return (
-      <TouchableHighlight  onPress={ () => {Linking.openURL(this.props.url)}} underlayColor="gray">
+      <TouchableHighlight  onPress={ () => {Linking.openURL(this.props.url)}} underlayColor="white">
         <View style={styles.newsItem}>
           <Text style={styles.summary}>{this.props.summary}</Text>
           <Image source={{uri: this.props.thumbnail}} style={styles.thumbnail} />
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     padding: 5,
     alignItems: 'center',
     marginBottom: 5,

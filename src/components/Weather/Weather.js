@@ -9,6 +9,7 @@ const Weather = createMaterialTopTabNavigator({
   Daily: Daily
 },
 {
+  animationEnabled: true,
   tabBarOptions: {
     style: {
       backgroundColor: 'white',

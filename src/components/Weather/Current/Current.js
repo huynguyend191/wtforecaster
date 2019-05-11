@@ -42,7 +42,7 @@ class Current extends Component {
             <Text style={styles.date}>{new Date(currentWeather.current.time).toDateString()}</Text>
             <View style={styles.mainDisplay}>
               <WeatherIcon name={weatherIconName[currentWeather.current.icon]} size={120} color="white" />
-              <Text style={styles.temp}>{Math.round(currentWeather.current.temp)}&#8451;</Text>
+              <Text style={styles.temp}>{Math.round(currentWeather.current.temp)}&#176;</Text>
             </View>
             <Text style={styles.realTemp}>Real Feel: {Math.round(currentWeather.current.apparentTemp)}&#176;</Text>
             <Text style={styles.summary}>{currentWeather.current.summary}</Text>
@@ -121,13 +121,13 @@ const styles = StyleSheet.create({
   },
   temp: {
     color: 'white',
-    fontSize: 70,
+    fontSize: 90,
     marginLeft: 20
   },
   summary: {
     color: 'white',
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 30,
     fontSize: 18
   },
   realTemp: {

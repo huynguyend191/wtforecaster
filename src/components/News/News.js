@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    paddingHorizontal: 5,
-    paddingTop: 5,
+    paddingTop: 10,
+    paddingHorizontal: 5
   }
 });
 
