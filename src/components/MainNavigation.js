@@ -4,12 +4,14 @@ import React from 'react';
 import Weather from './Weather/Weather';
 import News from './News/News';
 import Places from './Places/Places';
+import Preference from './Preference/Preference';
 
 
 const MainNavigation = createBottomTabNavigator({
   Weather: Weather,
   Places: Places,
-  News: News
+  News: News,
+  Preference: Preference
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
@@ -23,6 +25,9 @@ const MainNavigation = createBottomTabNavigator({
         iconName = `newspaper`;
       } else if (routeName === 'Places') {
         iconName = 'map-search'
+      }
+      else if (routeName === 'Preference') {
+        iconName = 'account-settings'
       }
       return <IconComponent name={iconName} size={25} color={tintColor} />;
     },

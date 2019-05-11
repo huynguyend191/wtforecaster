@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, RefreshControl, ScrollView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchHourlyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,20 +25,32 @@ class Hourly extends Component {
       <ActivityIndicator size="large" color="white" />
     );
     if (!this.props.loadingHourlyWeather ) {
-      console.log(this.props.hourlyWeather)
       if (this.props.hourlyWeather) {
-
+        const hourlyWeather = this.props.hourlyWeather;
         displayWeatherInfo = (
-          <View>
-           
-          </View>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onFetchHourlyWeather}
+              />
+            }
+            style={styles.weather}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.hourlySummary}>
+              <Text style={styles.summaryTitle}>HOURLY SUMMARY</Text>
+              <View style={styles.summaryContent}>
+                <Text style={styles.summary}>{hourlyWeather.hourlySummary}</Text>
+                <WeatherIcon name={weatherIconName[hourlyWeather.hourlyIcon]} size={50} color="white" />
+              </View>
+            </View>
+          </ScrollView>
         )
       }
       
     }
     return (
       <View style={styles.weatherContainer}>
-        <Text>Weather Forecast Hourly</Text>
         {displayWeatherInfo}
       </View>
     );
@@ -63,13 +75,38 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   },
-  mainDisplay: {
+  weather: {
+    flex: 1,
+  },
+  hourlySummary: {
+    marginVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    width: '100%',
+    flex: 1,
+    display: 'flex',
+    paddingVertical: 15,
+    paddingHorizontal: 10
+  },
+  summaryTitle: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  summaryContent: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    justifyContent: 'space-between'
+  },
+  summary: {
+    color: 'white',
+    flexWrap: 'wrap',
+    width: '80%',
   }
 });
 

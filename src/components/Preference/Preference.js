@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 
-class Places extends Component {
+class Preference extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Places</Text>
+        <Text>Settings</Text>
       </View>
     );
   }
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Places;
+export default Preference;

@@ -11,7 +11,7 @@ class DailyItem extends Component {
     Animated.timing(this.state.scaleValue, {
         toValue: 1,
         duration : 600,
-        delay: this.props.index * 550
+        delay: this.props.index * 650
     }).start();
   }
   render() {
