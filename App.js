@@ -8,13 +8,13 @@ import { GoogleSignin } from 'react-native-google-signin';
 
 class App extends Component {
   state = {
-    backgroundColor: ['#6047d9', '#4c9dd5', '#4ac2d2']
+    backgroundColor: ['#44329B', '#4c9dd5', '#4ac2d2']
   }
   changeColor = () => {
     const currentHour = new Date(Date.now()).getHours();
     if (currentHour > 18 || currentHour < 5) {
       this.setState({
-        backgroundColor: ['#454879', '#567AAC', '#379DB3']
+        backgroundColor: ['#36287c', '#454879', '#567AAC']
       })
     }
   }

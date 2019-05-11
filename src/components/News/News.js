@@ -32,6 +32,7 @@ class News extends Component {
                 thumbnail={item.thumbnail} 
                 summary={item.summary}
                 url={item.link}
+                index={item.index}
               />
             }
           />

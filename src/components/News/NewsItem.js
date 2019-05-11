@@ -1,15 +1,24 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, TouchableHighlight , Image, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight , Image, Linking, Animated } from 'react-native';
 
 class NewsItem extends Component {
-
+  state = {
+    scaleValue: new Animated.Value(0.01)
+  }
+  componentDidMount() {
+    Animated.timing(this.state.scaleValue, {
+        toValue: 1,
+        duration : 600,
+        delay: this.props.index * 450
+    }).start();
+  }
   render() {
     return (
       <TouchableHighlight  onPress={ () => {Linking.openURL(this.props.url)}} underlayColor="white">
-        <View style={styles.newsItem}>
+        <Animated.View style={[styles.newsItem, { opacity: this.state.scaleValue }]}>
           <Text style={styles.summary}>{this.props.summary}</Text>
           <Image source={{uri: this.props.thumbnail}} style={styles.thumbnail} />
-        </View>
+        </Animated.View>
       </TouchableHighlight >
     );
   }

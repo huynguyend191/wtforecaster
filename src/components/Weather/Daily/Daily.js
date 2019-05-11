@@ -38,6 +38,7 @@ class Daily extends Component {
             }
             style={styles.weather}
             showsVerticalScrollIndicator={false}
+
           >
             <View style={styles.dailySummary}>
               <Text style={styles.summaryTitle}>DAILY SUMMARY</Text>
@@ -61,6 +62,7 @@ class Daily extends Component {
                   uvIndex={item.uvIndex}
                   tempMax={item.temperatureMax}
                   tempMin={item.temperatureMin}
+                  index={item.index}
                 />
               }
             />
@@ -108,7 +110,8 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     display: 'flex',
-    paddingVertical: 15
+    paddingVertical: 15,
+    paddingHorizontal: 10
   },
   summaryTitle: {
     color: 'white',
@@ -126,9 +129,7 @@ const styles = StyleSheet.create({
     color: 'white',
     flexWrap: 'wrap',
     width: '80%',
-    marginLeft: 5
   }
- 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Daily);
