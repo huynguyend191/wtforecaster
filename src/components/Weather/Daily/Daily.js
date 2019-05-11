@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchDailyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
+import DailyItem from './DailyItem';
 
 class Daily extends Component {
   componentDidMount() {
@@ -36,14 +37,33 @@ class Daily extends Component {
               />
             }
             style={styles.weather}
+            showsVerticalScrollIndicator={false}
           >
             <View style={styles.dailySummary}>
               <Text style={styles.summaryTitle}>DAILY SUMMARY</Text>
               <View style={styles.summaryContent}>
-                <WeatherIcon name={weatherIconName[dailyWeather.dailyIcon]} size={50} color="white" />
                 <Text style={styles.summary}>{dailyWeather.dailySummary}</Text>
+                <WeatherIcon name={weatherIconName[dailyWeather.dailyIcon]} size={50} color="white" />
               </View>
             </View>
+            <FlatList 
+              data={this.props.dailyWeather.dailyForecast}
+              keyExtractor={(item, index) => item.date}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => 
+                <DailyItem 
+                  date={item.date}
+                  summary={item.summary}
+                  icon={item.icon}
+                  rainProb={item.precipProbability}
+                  humidity={item.humidity}
+                  windSpeed={item.windSpeed}
+                  uvIndex={item.uvIndex}
+                  tempMax={item.temperatureMax}
+                  tempMin={item.temperatureMin}
+                />
+              }
+            />
           </ScrollView>
         )
       }
@@ -105,7 +125,8 @@ const styles = StyleSheet.create({
   summary: {
     color: 'white',
     flexWrap: 'wrap',
-    width: '80%'
+    width: '80%',
+    marginLeft: 5
   }
  
 });

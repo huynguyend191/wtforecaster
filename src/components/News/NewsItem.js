@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: 'center',
     marginBottom: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    height: 140
   },
   thumbnail: {
     width: '40%',
