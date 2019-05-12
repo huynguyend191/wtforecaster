@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchHourlyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
+import HourlyItem from './HourlyItem';
 
 class Hourly extends Component {
   componentDidMount() {
@@ -44,6 +45,26 @@ class Hourly extends Component {
                 <WeatherIcon name={weatherIconName[hourlyWeather.hourlyIcon]} size={50} color="white" />
               </View>
             </View>
+            <FlatList 
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              data={hourlyWeather.hourlyForecast.filter((a,i)=>i%2===0)} //take every 2 hour
+              keyExtractor={(item, index) => item.time}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => 
+                <HourlyItem 
+                  time={item.time}
+                  summary={item.summary}
+                  icon={item.icon}
+                  rainProb={item.precipProbability}
+                  humidity={item.humidity}
+                  windSpeed={item.windSpeed}
+                  uvIndex={item.uvIndex}
+                  temp={item.temp}
+                  index={item.index}
+                />
+              }
+            />
           </ScrollView>
         )
       }
@@ -76,7 +97,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 5
   },
   weather: {
     flex: 1,
@@ -89,7 +111,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     paddingVertical: 15,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginBottom: 40
   },
   summaryTitle: {
     color: 'white',

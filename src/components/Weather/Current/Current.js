@@ -66,7 +66,7 @@ class Current extends Component {
                   <WeatherIcon name="wind-turbine" color="white" size={19} />
                   <Text style={styles.detailLabelText}>Wind speed</Text>
                 </View>
-                <Text style={styles.detailData}>{currentWeather.current.windSpeed} m/s</Text>
+                <Text style={styles.detailData}>{currentWeather.current.windSpeed} mph</Text>
               </View>
               <View style={styles.detailItem}>
                 <View style={styles.detailLabel}> 
@@ -74,6 +74,13 @@ class Current extends Component {
                   <Text style={styles.detailLabelText}>Rain probability</Text>
                 </View>
                 <Text style={styles.detailData}>{Math.round(Number(currentWeather.current.precipProbability) * 100)}%</Text>
+              </View>
+              <View style={styles.detailItem}>
+                <View style={styles.detailLabel}> 
+                  <WeatherIcon name="gauge" color="white" size={19} />
+                  <Text style={styles.detailLabelText}>Pressure</Text>
+                </View>
+                <Text style={styles.detailData}>{currentWeather.current.pressure} Pa</Text>
               </View>
             </View>
           </ScrollView>

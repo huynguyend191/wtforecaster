@@ -48,7 +48,7 @@ class Daily extends Component {
               </View>
             </View>
             <FlatList 
-              data={this.props.dailyWeather.dailyForecast}
+              data={dailyWeather.dailyForecast}
               keyExtractor={(item, index) => item.date}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => 
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 5
   },
   weather: {
     flex: 1,

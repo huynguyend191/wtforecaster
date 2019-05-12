@@ -19,7 +19,7 @@ class DailyItem extends Component {
       <Animated.View style={[styles.dailyItem, { opacity: this.state.scaleValue }]}>
         <Text style={styles.date}>{this.props.date}</Text>
         <View style={styles.mainDisplay}>
-          <WeatherIcon name={weatherIconName[this.props.icon]} size={60} color="white" />
+          <WeatherIcon name={weatherIconName[this.props.icon]} size={50} color="white" />
           <Text style={styles.temp}>{Math.round(this.props.tempMax)}&#176; | {Math.round(this.props.tempMin)}&#176;</Text>
         </View>
         <Text style={styles.summary}>{this.props.summary}</Text>
@@ -36,9 +36,9 @@ class DailyItem extends Component {
         <View style={styles.detailContainer}>
           <View style={styles.detailRow}>
             <WeatherIcon name="wind-turbine" color="white" size={19} />
-            <Text style={styles.detailText}>{this.props.windSpeed} m/s</Text>
+            <Text style={styles.detailText}>{this.props.windSpeed} mph</Text>
           </View>
-          <View style={styles.detailRow}>
+          <View style={styles.detailRow}> 
             <WeatherIcon name="white-balance-sunny" color="white" size={19} />
             <Text style={styles.detailText}>{this.props.uvIndex}</Text>
           </View>
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
   date: {
     textAlign: 'center',
     fontSize: 16,
-    color: 'white'
+    color: 'white',
+    fontWeight: 'bold'
   },
   summary: {
     textAlign: 'center',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
   temp: {
     color: 'white',
-    fontSize: 40,
+    fontSize: 35,
     marginLeft: 20
   },
   detailContainer: {
