@@ -33,3 +33,9 @@ export const fetchCurrentWeather = (coords) => {
   }
 }
 
+export const changeUnit = (unit) => {
+  return {
+    type: actionTypes.CHANGE_UNIT,
+    unit
+  }
+}

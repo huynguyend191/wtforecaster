@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCurrentWeather, getCurrentCity } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
+import {convertTemp} from '../../../utils/convertTemp';
 
 class Current extends Component {
 
@@ -58,9 +59,9 @@ class Current extends Component {
             <Text style={styles.date}>{new Date(currentWeather.current.time).toDateString()}</Text>
             <View style={styles.mainDisplay}>
               <WeatherIcon name={weatherIconName[currentWeather.current.icon]} size={120} color="white" />
-              <Text style={styles.temp}>{Math.round(currentWeather.current.temp)}&#176;</Text>
+              <Text style={styles.temp}>{convertTemp(currentWeather.current.temp, this.props.unit)}&#176;</Text>
             </View>
-            <Text style={styles.realTemp}>Real Feel: {Math.round(currentWeather.current.apparentTemp)}&#176;</Text>
+            <Text style={styles.realTemp}>Real Feel: {convertTemp(currentWeather.current.apparentTemp, this.props.unit)}&#176;</Text>
             <Text style={styles.summary}>{currentWeather.current.summary}</Text>
             <View style={styles.detailInfo}>
               <View style={styles.detailItem}>
@@ -132,7 +133,8 @@ const mapStateToProps = state => {
     currentWeather: state.weatherReducer.currentWeather,
     loadingCurrentWeather: state.weatherReducer.loadingCurrentWeather,
     currentCity: state.placesReducer.currentCity,
-    loadingCurrentCity: state.placesReducer.loadingCurrentCity
+    loadingCurrentCity: state.placesReducer.loadingCurrentCity,
+    unit: state.weatherReducer.unit
   }
 }
 

@@ -5,6 +5,8 @@ import { fetchDailyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 import DailyItem from './DailyItem';
+import {convertTemp} from '../../../utils/convertTemp';
+
 
 class Daily extends Component {
   componentDidMount() {
@@ -47,6 +49,7 @@ class Daily extends Component {
               </View>
             </View>
             <FlatList 
+              extraData={this.props}
               data={dailyWeather.dailyForecast}
               keyExtractor={(item, index) => item.date}
               showsVerticalScrollIndicator={false}
@@ -59,8 +62,8 @@ class Daily extends Component {
                   humidity={item.humidity}
                   windSpeed={item.windSpeed}
                   uvIndex={item.uvIndex}
-                  tempMax={item.temperatureMax}
-                  tempMin={item.temperatureMin}
+                  tempMax={convertTemp(item.temperatureMax, this.props.unit)}
+                  tempMin={convertTemp(item.temperatureMin, this.props.unit)}
                   index={item.index}
                 />
               }
@@ -96,7 +99,8 @@ class Daily extends Component {
 const mapStateToProps = state => {
   return {
     dailyWeather: state.weatherReducer.dailyWeather,
-    loadingDailyWeather: state.weatherReducer.loadingDailyWeather
+    loadingDailyWeather: state.weatherReducer.loadingDailyWeather,
+    unit: state.weatherReducer.unit,
   }
 }
 

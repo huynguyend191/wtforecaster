@@ -5,6 +5,7 @@ import { fetchHourlyWeather } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 import HourlyItem from './HourlyItem';
+import {convertTemp} from '../../../utils/convertTemp';
 
 class Hourly extends Component {
   componentDidMount() {
@@ -60,7 +61,7 @@ class Hourly extends Component {
                   humidity={item.humidity}
                   windSpeed={item.windSpeed}
                   uvIndex={item.uvIndex}
-                  temp={item.temp}
+                  temp={convertTemp(item.temp, this.props.unit)}
                   index={item.index}
                 />
               }
@@ -96,7 +97,8 @@ class Hourly extends Component {
 const mapStateToProps = state => {
   return {
     hourlyWeather: state.weatherReducer.hourlyWeather,
-    loadingHourlyWeather: state.weatherReducer.loadingHourlyWeather
+    loadingHourlyWeather: state.weatherReducer.loadingHourlyWeather,
+    unit: state.weatherReducer.unit
   }
 }
 

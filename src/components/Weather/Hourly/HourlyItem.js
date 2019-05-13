@@ -21,7 +21,7 @@ class HourlyItem extends Component {
         <Text style={styles.hour}>{hour}</Text>
         <View style={styles.tempContainer}>
           <WeatherIcon name={weatherIconName[this.props.icon]} size={40} color="white" />
-          <Text style={styles.temp}>{Math.round(this.props.temp)}&#176;</Text>
+          <Text style={styles.temp}>{this.props.temp}&#176;</Text>
         </View>
         <View style={styles.detailRow}>
             <WeatherIcon name="weather-rainy" color="white" size={19} />

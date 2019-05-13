@@ -6,7 +6,8 @@ const initialState = {
   currentWeather: null,
   loadingCurrentWeather: false,
   hourlyWeather: null,
-  loadingHourlyWeather: false
+  loadingHourlyWeather: false,
+  unit: 'si'
 }
 
 const reducer = ((state = initialState, action) => {
@@ -61,6 +62,11 @@ const reducer = ((state = initialState, action) => {
         ...state,
         loadingHourlyWeather: false
       };
+    case actionTypes.CHANGE_UNIT:
+      return {
+        ...state,
+        unit: action.unit
+      }
     
     default:
       return state;

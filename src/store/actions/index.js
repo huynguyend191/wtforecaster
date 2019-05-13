@@ -3,7 +3,8 @@ export {
 } from './actionCreator/dailyWeather';
 
 export {
-  fetchCurrentWeather
+  fetchCurrentWeather,
+  changeUnit
 } from './actionCreator/currentWeather';
 
 export {

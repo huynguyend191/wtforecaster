@@ -20,7 +20,7 @@ class DailyItem extends Component {
         <Text style={styles.date}>{this.props.date}</Text>
         <View style={styles.mainDisplay}>
           <WeatherIcon name={weatherIconName[this.props.icon]} size={50} color="white" />
-          <Text style={styles.temp}>{Math.round(this.props.tempMax)}&#176; | {Math.round(this.props.tempMin)}&#176;</Text>
+          <Text style={styles.temp}>{this.props.tempMax}&#176; | {this.props.tempMin}&#176;</Text>
         </View>
         <Text style={styles.summary}>{this.props.summary}</Text>
         <View style={styles.detailContainer}>
