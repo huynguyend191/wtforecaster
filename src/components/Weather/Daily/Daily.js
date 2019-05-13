@@ -38,7 +38,6 @@ class Daily extends Component {
             }
             style={styles.weather}
             showsVerticalScrollIndicator={false}
-
           >
             <View style={styles.dailySummary}>
               <Text style={styles.summaryTitle}>DAILY SUMMARY</Text>
@@ -68,8 +67,23 @@ class Daily extends Component {
             />
           </ScrollView>
         )
+      } else {
+        displayWeatherInfo = (
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onFetchDailyWeather}
+              />
+            }
+            style={styles.weather}
+          >
+            <View>
+              <Text style={styles.error}>Something went wrong</Text>
+            </View>
+          </ScrollView>
+          
+        )
       }
-      
     }
     return (
       <View style={styles.weatherContainer}>
@@ -130,6 +144,11 @@ const styles = StyleSheet.create({
     color: 'white',
     flexWrap: 'wrap',
     width: '80%',
+  },
+  error: {
+    color: 'white',
+    fontSize: 18,
+    marginTop: 250
   }
 });
 

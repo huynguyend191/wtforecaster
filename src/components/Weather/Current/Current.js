@@ -102,8 +102,23 @@ class Current extends Component {
             </View>
           </ScrollView>
         )
+      } else {
+        displayWeatherInfo = (
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onFetchCurrentWeather}
+              />
+            }
+            style={styles.weather}
+          >
+            <View>
+              <Text style={styles.error}>Something went wrong</Text>
+            </View>
+          </ScrollView>
+          
+        )
       }
-      
     }
     return (
       <View style={styles.weatherContainer}>
@@ -204,6 +219,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginLeft: 3
+  },
+  error: {
+    color: 'white',
+    fontSize: 18,
+    marginTop: 250
   }
 });
 

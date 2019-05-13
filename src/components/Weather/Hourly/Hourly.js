@@ -67,6 +67,21 @@ class Hourly extends Component {
             />
           </ScrollView>
         )
+      } else {
+        displayWeatherInfo = (
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={this.onFetchHourlyWeather}
+              />
+            }
+            style={styles.errorContainer}
+          >
+            <View>
+              <Text style={styles.error}>Something went wrong</Text>
+            </View>
+          </ScrollView>
+        )
       }
       
     }
@@ -130,6 +145,11 @@ const styles = StyleSheet.create({
     color: 'white',
     flexWrap: 'wrap',
     width: '80%',
+  },
+  error: {
+    color: 'white',
+    fontSize: 18,
+    marginTop: 250
   }
 });
 

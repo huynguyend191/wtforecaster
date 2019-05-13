@@ -13,7 +13,6 @@ const reducer = ((state = initialState, action) => {
         loadingCurrentCity: true
       }
     case actionTypes.GET_CURRENT_CITY_SUCCEEDED: 
-      console.log(action.city)
       return {
         ...state,
         loadingCurrentCity: false,
