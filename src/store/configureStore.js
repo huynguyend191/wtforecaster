@@ -1,11 +1,13 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import weatherReducer from '../store/reducers/weatherForecast';
 import newsReducer from '../store/reducers/news';
+import placesReducer from '..//store/reducers/places';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   weatherReducer: weatherReducer,
-  newsReducer: newsReducer
+  newsReducer: newsReducer,
+  placesReducer: placesReducer
 });
 
 let composeEnhancers = compose;

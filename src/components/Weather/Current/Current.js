@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, RefreshControl, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchCurrentWeather } from '../../../store/actions';
+import { fetchCurrentWeather, getCurrentCity } from '../../../store/actions';
 import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 
@@ -17,6 +17,7 @@ class Current extends Component {
         latitude: positon.coords.latitude,
         longitude: positon.coords.longitude
       };
+      this.props.getCurrentCity(coords);
       this.props.fetchCurrentWeather(coords);
     }, error => {
       alert('Please turn on your GPS and Internet connection!');
@@ -27,6 +28,21 @@ class Current extends Component {
     let displayWeatherInfo = (
       <ActivityIndicator size="large" color="white" />
     );
+    let currentLocation = (
+      <View style={styles.locationContainer}></View>
+    )
+    if (!this.props.loadingCurrentCity) {
+      if (this.props.currentCity) {
+        const currentCity = this.props.currentCity;
+        console.log(currentCity)
+        currentLocation = (
+          <View style={styles.locationContainer}>
+            <WeatherIcon name="map-marker" size={19} color="white" />
+            <Text style={styles.location}>{currentCity}</Text>
+          </View>      
+        )
+      }
+    }
     if (!this.props.loadingCurrentWeather ) {
       if (this.props.currentWeather) {
         const currentWeather = this.props.currentWeather;
@@ -39,6 +55,7 @@ class Current extends Component {
             }
             style={styles.weather}
           >
+            {currentLocation}
             <Text style={styles.date}>{new Date(currentWeather.current.time).toDateString()}</Text>
             <View style={styles.mainDisplay}>
               <WeatherIcon name={weatherIconName[currentWeather.current.icon]} size={120} color="white" />
@@ -99,13 +116,16 @@ class Current extends Component {
 const mapStateToProps = state => {
   return {
     currentWeather: state.weatherReducer.currentWeather,
-    loadingCurrentWeather: state.weatherReducer.loadingCurrentWeather
+    loadingCurrentWeather: state.weatherReducer.loadingCurrentWeather,
+    currentCity: state.placesReducer.currentCity,
+    loadingCurrentCity: state.placesReducer.loadingCurrentCity
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCurrentWeather: (coords) => dispatch(fetchCurrentWeather(coords))
+    fetchCurrentWeather: (coords) => dispatch(fetchCurrentWeather(coords)),
+    getCurrentCity: (coords) => dispatch(getCurrentCity(coords))
   }
 }
 
@@ -169,8 +189,21 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 16,
-    marginBottom: 20,
-    marginTop: 50
+    marginBottom: 10,
+  },
+  locationContainer: {
+    height: 25,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    marginTop: 45
+  },
+  location: {
+    color: 'white',
+    fontSize: 18,
+    marginLeft: 3
   }
 });
 

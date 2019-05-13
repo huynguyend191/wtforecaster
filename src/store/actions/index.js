@@ -13,3 +13,7 @@ export {
 export {
   fetchNews
 } from './actionCreator/news';
+
+export {
+  getCurrentCity
+} from './actionCreator/places';
