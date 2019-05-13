@@ -34,7 +34,6 @@ class Current extends Component {
     if (!this.props.loadingCurrentCity) {
       if (this.props.currentCity) {
         const currentCity = this.props.currentCity;
-        console.log(currentCity)
         currentLocation = (
           <View style={styles.locationContainer}>
             <WeatherIcon name="map-marker" size={19} color="white" />
