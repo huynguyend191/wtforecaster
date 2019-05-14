@@ -20,6 +20,14 @@ class SearchCity extends Component {
       data: newData,
     });
   };
+  renderItem = ({item}) => (
+    <TouchableOpacity onPress={() => this.selectCity(item)}>
+      <View style={styles.cityContainer}>
+        <Text style={styles.cityName}>{item.city}</Text>
+      </View>
+    </TouchableOpacity> 
+  )
+            
   selectCity = async (city) => {
     try {
       let newCities = [];
@@ -29,11 +37,13 @@ class SearchCity extends Component {
         newCities.push(city);
         await AsyncStorage.clear();
         await AsyncStorage.setItem('cities', JSON.stringify(newCities));
+        this.props.onReload();
         this.props.onAddCity();
       } else {
         newCities.push(city);
         await AsyncStorage.setItem('cities', JSON.stringify(newCities));
-        this.props.onAddCity();        
+        this.props.onReload();
+        this.props.onAddCity();    
       }
     } catch (error) {
       // Error saving data
@@ -50,15 +60,12 @@ class SearchCity extends Component {
           value={this.state.value}    
         />   
         <FlatList
-          keyExtractor={(item, index) => item.city + Math.random()}
+          keyExtractor={(item, index) => index}
           data={this.state.data}
-          renderItem={({item}) =>
-            <TouchableOpacity onPress={() => this.selectCity(item)}>
-              <View style={styles.cityContainer}>
-                <Text style={styles.cityName}>{item.city}</Text>
-              </View>
-            </TouchableOpacity> 
-          }
+          renderItem={this.renderItem}
+          getItemLayout={(data, index) => (
+            {length: 40, offset: 40 * index, index}
+          )}
         />
       </View>
     );
