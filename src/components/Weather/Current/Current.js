@@ -69,7 +69,7 @@ class Current extends Component {
                   <WeatherIcon name="water-percent" color="white" size={19} />
                   <Text style={styles.detailLabelText}>Humidity</Text>
                 </View>
-                <Text style={styles.detailData}>{Number(currentWeather.current.humidity) * 100}%</Text>
+                <Text style={styles.detailData}>{Math.round(Number(currentWeather.current.humidity) * 100)}%</Text>
               </View>
               <View style={styles.detailItem}>
                 <View style={styles.detailLabel}> 

@@ -1,12 +1,31 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Button, Modal} from 'react-native';
+import SearchCity from './SearchCity';
 
 class Multi extends Component {
-
+  state = {
+    showSearch: false
+  }
+  showSearch = () => {
+    this.setState({
+      showSearch: true
+    })
+  }
+  hideSearch =() => {
+    this.setState({
+      showSearch: false
+    })
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Multi</Text>
+        <Button title="Show" onPress={this.showSearch} />
+        <Modal
+          visible={this.state.showSearch}
+          onRequestClose={this.hideSearch}
+        >
+          <SearchCity />
+        </Modal>
       </View>
     );
   }

@@ -63,7 +63,7 @@ class Preference extends Component {
     if (value) {
       this.props.changeUnit('us');
     } else {
-      this.props.changeUnit('si')
+      this.props.changeUnit('si');
     }
   }
   render() {
