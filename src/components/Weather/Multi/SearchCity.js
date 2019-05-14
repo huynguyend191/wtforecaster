@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, AsyncStorage} from 'react-native';
 import cityList from '../../../utils/world_coor.json';
-// import {AsyncStorage} from '@react-native-community/async-storage';
 
 class SearchCity extends Component {
   state = {
@@ -30,11 +29,11 @@ class SearchCity extends Component {
         newCities.push(city);
         await AsyncStorage.clear();
         await AsyncStorage.setItem('cities', JSON.stringify(newCities));
-        console.log(newCities)
+        this.props.onAddCity();
       } else {
         newCities.push(city);
         await AsyncStorage.setItem('cities', JSON.stringify(newCities));
-        console.log(newCities)
+        this.props.onAddCity();        
       }
     } catch (error) {
       // Error saving data
@@ -44,18 +43,20 @@ class SearchCity extends Component {
     return (
       <View style={styles.container}>
         <TextInput        
-          placeholder="Type Here..."        
+          placeholder="Type city name here"        
           round        
           onChangeText={text => this.searchFilterFunction(text)}
           autoCorrect={false}         
           value={this.state.value}    
         />   
         <FlatList
-          keyExtractor={(item, index) => item.city}
+          keyExtractor={(item, index) => item.city + Math.random()}
           data={this.state.data}
           renderItem={({item}) =>
             <TouchableOpacity onPress={() => this.selectCity(item)}>
-              <Text>{item.city}</Text>
+              <View style={styles.cityContainer}>
+                <Text style={styles.cityName}>{item.city}</Text>
+              </View>
             </TouchableOpacity> 
           }
         />
@@ -66,7 +67,21 @@ class SearchCity extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 400,
+    width: 300,
+    backgroundColor: '#fff', padding: 20,
+    borderRadius: 10
+  },
+  cityContainer: {
+    padding: 2,
+    borderTopColor: 'gray',
+    borderTopWidth: 1,
+    height: 40,
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  cityName: {
+    fontSize: 14
   }
 });
 
