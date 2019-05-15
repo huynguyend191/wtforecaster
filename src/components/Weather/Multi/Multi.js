@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     alignSelf: 'center',
-    marginTop: '50%'
+    marginTop: '60%'
   }
 });
 
