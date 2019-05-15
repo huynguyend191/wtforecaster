@@ -6,7 +6,7 @@ import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 import DailyItem from './DailyItem';
 import {convertTemp} from '../../../utils/convertTemp';
-
+import { VictoryLine, VictoryChart, VictoryAxis } from 'victory-native';
 
 class Daily extends Component {
   componentDidMount() {
@@ -50,6 +50,54 @@ class Daily extends Component {
                 <Text style={styles.summary}>{dailyWeather.dailySummary}</Text>
                 <WeatherIcon name={weatherIconName[dailyWeather.dailyIcon]} size={50} color="white" />
               </View>
+            </View>
+            <View style={styles.container} pointerEvents='none'>
+              <VictoryChart>
+                <VictoryLine
+                  style={{
+                    data: { stroke: "white", color: "white" },
+                  }}
+                  categories={{x: ["Thu 20/1", "Fri", "Sat", "Sun","Mon", "Tues","wed", "Thu 22/1"]}}
+                  data={[
+                    { x: 1, y: 2 },
+                    { x: 2, y: 3 },
+                    { x: 3, y: 5 },
+                    { x: 4, y: 4 },
+                    { x: 5, y: 7 },
+                    { x: 6, y: 7 },
+                    { x: 7, y: 7 },
+                    { x: 8, y: 7 },
+
+                  ]}
+                />
+                 <VictoryLine
+                  style={{
+                    data: { stroke: "white", color: "white" },
+                  }}
+                  data={[
+                    { x: 1, y: 7 },
+                    { x: 2, y: 9 },
+                    { x: 3, y: 10 },
+                    { x: 4, y: 2 },
+                    { x: 5, y: 4 },
+                    { x: 6, y: 2 },
+                    { x: 7, y: 4 },
+                    { x: 8, y: 7 },
+                  ]}
+                />
+                <VictoryAxis
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"}
+                  }}
+                />
+                <VictoryAxis dependentAxis
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"}
+                  }}
+                />
+              </VictoryChart>
             </View>
             <FlatList 
               extraData={this.props}
@@ -160,6 +208,11 @@ const styles = StyleSheet.create({
   loadingText: {
     color: 'white',
     marginBottom: 5
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent"
   }
 });
 

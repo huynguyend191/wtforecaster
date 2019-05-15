@@ -6,6 +6,7 @@ import WeatherIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import weatherIconName from '../../../utils/weatherIconName';
 import HourlyItem from './HourlyItem';
 import {convertTemp} from '../../../utils/convertTemp';
+import { VictoryLine, VictoryChart, VictoryAxis } from 'victory-native';
 
 class Hourly extends Component {
   componentDidMount() {
@@ -32,6 +33,13 @@ class Hourly extends Component {
     if (!this.props.loadingHourlyWeather ) {
       if (this.props.hourlyWeather) {
         const hourlyWeather = this.props.hourlyWeather;
+        const data = [
+          { quarter: 1, earnings: 13000 },
+          { quarter: 2, earnings: 16500 },
+          { quarter: 3, earnings: 14250 },
+          { quarter: 4, earnings: 19000 }
+        ];
+        
         displayWeatherInfo = (
           <ScrollView
             refreshControl={
@@ -69,6 +77,34 @@ class Hourly extends Component {
                 />
               }
             />
+            <View style={styles.container} pointerEvents='none'>
+              <VictoryChart>
+                <VictoryLine
+                  style={{
+                    data: { stroke: "white", color: "white" },
+                  }}
+                  data={[
+                    { x: 1, y: 2 },
+                    { x: 2, y: 3 },
+                    { x: 3, y: 5 },
+                    { x: 4, y: 4 },
+                    { x: 5, y: 7 }
+                  ]}
+                />
+                <VictoryAxis
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"}
+                  }}
+                />
+                <VictoryAxis dependentAxis
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"}
+                  }}
+                />
+              </VictoryChart>
+            </View>
           </ScrollView>
         )
       } else {
@@ -159,6 +195,11 @@ const styles = StyleSheet.create({
   loadingText: {
     color: 'white',
     marginBottom: 5
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent"
   }
 });
 
