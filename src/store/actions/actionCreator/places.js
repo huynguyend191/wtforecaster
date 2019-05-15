@@ -25,7 +25,7 @@ export const getCurrentCity = (coords) => {
     dispatch(startGettingCurrentCity());
     axios.get(`/places/toAddress/${coords.longitude}/${coords.latitude}`)
     .then(result => {
-      dispatch(getCurrentCitySucceeded(result.data.results[0].city))
+      dispatch(getCurrentCitySucceeded(result.data.results[0]))
     })
     .catch(error => {
       dispatch(getCurrentCityFailed());

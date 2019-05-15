@@ -1,8 +1,36 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, ScrollView, RefreshControl} from 'react-native';
 import { connect } from 'react-redux';
+import PostComment from './PostComment';
+import axios from '../../utils/axiosConfig';
 
 class Places extends Component {
+  state = {
+    isHavingInfo: false,
+    loadingPlace: false,
+    user: null,
+    place: null
+  }
+  componentDidMount() {
+    this.getPlace();
+  }
+  getPlace = () => {
+    this.setState({
+      loadingPlace: true
+    });
+    if (this.props.currentWeather && this.props.currentAddress) {
+      console.log(this.props.currentWeather)
+      console.log(this.props.currentAddress)
+      this.setState({
+        isHavingInfo: true
+      });
+    }
+  }
+  setCurrentUser = (user) => {
+    this.setState({
+      user: user
+    });
+  }
 
   render() {
     let displayPlace = (
@@ -11,9 +39,33 @@ class Places extends Component {
         <ActivityIndicator size="large" color="white" />
       </View>
     )
+    if (this.state.isHavingInfo) {
+      displayPlace = (
+        <View>
+          <PostComment />
+        </View>
+      )
+    } else {
+        displayPlace=(
+          <View style={styles.error}>
+            <Text style={styles.errorMsg}>Can't get weather. Pls refresh</Text>
+          </View>
+        ) 
+    }
+    
     return (
-      <View style={styles.container}>
-        {displayPlace}
+      <View style={styles.container}> 
+        <ScrollView 
+          contentContainerStyle={{flexGrow: 1}}
+          refreshControl={
+            <RefreshControl
+              onRefresh={this.getPlace}
+              refreshing={false}
+            />
+          }
+        >
+          {displayPlace}
+        </ScrollView>
       </View>
     );
   }
@@ -29,15 +81,22 @@ const styles = StyleSheet.create({
   loadingText: {
     color: 'white',
     marginBottom: 5
+  },
+  error: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  errorMsg: {
+    color: 'white'
   }
 });
 
 const mapStateToProps = state => {
   return {
     currentCity: state.placesReducer.currentCity,
-    loadingCurrentCity: state.placesReducer.loadingCurrentCity,
-    dailyWeather: state.weatherReducer.dailyWeather,
-    loadingDailyWeather: state.weatherReducer.loadingDailyWeather,
+    currentAddress: state.placesReducer.currentAddress,
+    currentWeather: state.weatherReducer.currentWeather,
   }
 }
 

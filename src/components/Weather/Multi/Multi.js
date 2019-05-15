@@ -65,7 +65,7 @@ class Multi extends Component {
         displayWeatherInfo = (
           <FlatList 
             data={cities}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({item, index}) =>
               <TouchableOpacity onLongPress={() => this.removeCity(index)}>

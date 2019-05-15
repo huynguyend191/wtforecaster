@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   currentCity: null,
+  currentAddress: null,
   loadingCurrentCity: false
 }
 
@@ -16,7 +17,8 @@ const reducer = ((state = initialState, action) => {
       return {
         ...state,
         loadingCurrentCity: false,
-        currentCity: action.city
+        currentCity: action.city.city,
+        currentAddress: action.city.address
       }
     case actionTypes.GET_CURRENT_CITY_FAILED: 
       return {

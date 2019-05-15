@@ -60,7 +60,7 @@ class SearchCity extends Component {
           value={this.state.value}    
         />   
         <FlatList
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
           data={this.state.data}
           renderItem={this.renderItem}
           getItemLayout={(data, index) => (
