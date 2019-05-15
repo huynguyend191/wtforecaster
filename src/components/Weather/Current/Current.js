@@ -27,7 +27,10 @@ class Current extends Component {
 
   render() {
     let displayWeatherInfo = (
-      <ActivityIndicator size="large" color="white" />
+      <View>
+        <Text style={styles.loadingText}>Fetching weather...</Text>
+        <ActivityIndicator size="large" color="white" />
+      </View>
     );
     let currentLocation = (
       <View style={styles.locationContainer}></View>
@@ -225,6 +228,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginTop: 250
+  },
+  loadingText: {
+    color: 'white',
+    marginBottom: 5
   }
 });
 

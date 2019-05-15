@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, Text} from 'react-native';
 import { connect } from 'react-redux';
 import { fetchNews } from '../../store/actions';
 import NewsItem from './NewsItem';
@@ -14,7 +14,10 @@ class News extends Component {
   }
   render() {
     let displayNews = (
-      <ActivityIndicator size="large" color="white" />
+      <View>
+        <Text style={styles.loadingText}>Fetching news...</Text>
+        <ActivityIndicator size="large" color="white" />
+      </View>
     )
     if (!this.props.loadingNews) {
       if (this.props.news) {
@@ -55,6 +58,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 10,
     paddingHorizontal: 5
+  },
+  loadingText: {
+    color: 'white',
+    marginBottom: 5
   }
 });
 
