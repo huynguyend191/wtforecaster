@@ -1,21 +1,31 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, ScrollView, RefreshControl, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, ScrollView, RefreshControl, FlatList, Modal, TouchableWithoutFeedback} from 'react-native';
 import { connect } from 'react-redux';
 import PostComment from './PostComment';
 import axios from '../../utils/axiosConfig';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PlaceItem from './PlaceItem';
+import {GoogleSignin} from 'react-native-google-signin';
 
 class Places extends Component {
   state = {
     isHavingInfo: false,
     loadingPlace: false,
-    places: null
+    places: null,
+    openComment: false,
+    selectedPlace: null,
+    user: {
+      user: {
+        email: null
+      }
+    }
   }
   componentDidMount() {
     this.getPlace();
   }
+
   getPlace = () => {
+    this.getCurrentUser();
     this.setState({
       loadingPlace: true
     });
@@ -42,6 +52,49 @@ class Places extends Component {
       })
     }
   }
+  onAddComment = (place) => {
+    this.setState({
+      selectedPlace: place,
+      openComment: true
+    })
+  }
+
+  hideComment = () => {
+    this.setState({
+      openComment: false,
+      selectedPlace: null
+    })
+  }
+
+  setUserEmail = (email) => {
+    this.setState({
+      email: email
+    });
+  }
+
+  getCurrentUser = async () => {
+    const currentUser = await GoogleSignin.getCurrentUser();
+    if (currentUser) {
+      this.setState({
+        user: currentUser
+      });
+    } else {
+      this.setState({
+        user: {
+          user: {
+            email: null
+          }
+        }
+      });
+    }
+  };
+
+  setUser = (user) => {
+    this.setState({
+      user: user
+    });
+  }
+  
 
   render() {
     let displayPlace = null;
@@ -65,8 +118,12 @@ class Places extends Component {
               data={this.state.places}
               keyExtractor={(item, index) => item._id}
               renderItem={({item}) => 
-                <PlaceItem 
+                <PlaceItem
+                  extraData={this.state}
+                  email={this.state.user.user.email} 
                   placeInfo={item}
+                  onAddComment={this.onAddComment}
+                  onReload={this.getPlace}
                 />
               }
             />
@@ -103,6 +160,18 @@ class Places extends Component {
         >
           {displayPlace}
         </ScrollView>
+        <Modal
+            animationType="fade"
+            transparent
+            visible={this.state.openComment}
+            onRequestClose={this.hideComment}
+          > 
+            <TouchableWithoutFeedback onPress={this.hideComment}>
+              <View style={styles.modalContent}>
+                <PostComment onClose={this.hideComment} onReload={this.getPlace} place={this.state.selectedPlace} setUser={this.setUser} />
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
       </View>
     );
   }
@@ -147,6 +216,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     marginTop: 20
+  },
+  modalContent: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000080'
   },
 });
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet , Image, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet , Image, Animated, TouchableWithoutFeedback, FlatList, Button } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Comment from './Comment';
 
 class PlaceItem extends Component {
   state = {
@@ -20,14 +21,31 @@ class PlaceItem extends Component {
       isExpanding: !prevState.isExpanding
     }));
   }
+  addComment = (place) => {
+    this.props.onAddComment(place);
+  }
+ 
   render() {
     const place = this.props.placeInfo;
     let expandSection = null;
     if (this.state.isExpanding) {
       expandSection = (
-        <View>
+        <View styles={styles.expandSection}>
           <Text style={styles.description}>Description</Text>
           <Text>{place.description}</Text>
+          <Text style={styles.description}>Comments</Text>
+          <FlatList
+            extraData={this.props.email}
+            data={place.comments}
+            keyExtractor={(item, index) => item._id}
+            renderItem={({item}) => 
+              <Comment email={this.props.email} comment={item} placeId={this.props.placeInfo._id} onReload={this.props.onReload}/>
+            }
+          />
+          <View style={styles.addCmtButton}>
+            <Button title="ADD COMMENT" color="#4c5bd5" onPress={() => this.addComment(place)} />
+          </View>
+
         </View>
       )
     } else {
@@ -35,14 +53,14 @@ class PlaceItem extends Component {
     }
     
     return (
-      <TouchableOpacity onPress={this.expandInfo}>
+      <TouchableWithoutFeedback onPress={this.expandInfo}>
         <Animated.View style={[styles.placeItem, { opacity: this.state.scaleValue }]}>
           <View style={styles.mainDisplay}>
             <Image source={{uri: place.image.link}} style={styles.image} />
             <View style={styles.title}>
               <Text style={styles.placeName}>{place.name}</Text>
               <Text style={styles.address}>{place.address.detail}</Text>
-              <AirbnbRating 
+              <AirbnbRating
                 showRating={false}
                 size={20}
                 defaultRating={place.rate}
@@ -56,7 +74,7 @@ class PlaceItem extends Component {
           </View>
           {expandSection}
         </Animated.View>
-      </TouchableOpacity >
+      </TouchableWithoutFeedback >
     );
   }
 }
@@ -101,10 +119,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 3,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 5
   },
   address: {
     textAlign: 'center'
+  },
+  expandSection: {
+    alignItems: 'center'
+  },
+  addCmtButton: {
+    width: 200,
+    borderRadius: 3,
+    alignSelf: 'center',
+    marginTop: 10
   }
 })
 
