@@ -23,7 +23,7 @@ export const fetchHourlyWeatherFailed = () => {
 export const fetchHourlyWeather = (coords) => {
   return dispatch => {
     dispatch(startFetchingHourlyWeather());
-    axios.get(`/weather/Hourly?longitude=${coords.longitude}&latitude=${coords.latitude}`)
+    axios.get(`/weatherCache/Hourly?longitude=${coords.longitude}&latitude=${coords.latitude}`)
     .then(result => {
       dispatch(fetchHourlyWeatherSucceeded(result.data.weatherInfor))
     })
