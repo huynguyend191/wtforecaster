@@ -61,10 +61,6 @@ class Hourly extends Component {
                   }}
                   data={chartData}
                   categories={chartLabel}
-                  animate={{
-                    duration: 1000,
-                    onLoad: { duration: 500 }
-                  }}
                 />
                 <VictoryAxis
                   label="Temperature Chart"

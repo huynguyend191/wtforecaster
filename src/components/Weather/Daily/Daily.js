@@ -58,10 +58,6 @@ class Daily extends Component {
             <View style={styles.container} pointerEvents='none'>
               <VictoryChart>
                 <VictoryLine
-                  animate={{
-                    duration: 1000,
-                    onLoad: { duration: 500 }
-                  }}
                   style={{
                     data: { stroke: "white", color: "white" },
                   }}
@@ -69,10 +65,6 @@ class Daily extends Component {
                   data={maxTempData}
                 />
                  <VictoryLine
-                  animate={{
-                    duration: 1000,
-                    onLoad: { duration: 500 }
-                  }}
                   style={{
                     data: { stroke: "white", color: "white" },
                   }}

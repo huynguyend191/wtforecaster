@@ -36,7 +36,7 @@ class Places extends Component {
       this.setState({
         isHavingInfo: true
       });
-      axios.get(`/places?min_temp=${temp}&max_temp=${temp}&country=${country}`)
+      axios.get(`/places?min_temp=${temp}&max_temp=${temp}&country=${country}&city=${city}`)
       .then(result => {
         this.setState({
           places: result.data,
