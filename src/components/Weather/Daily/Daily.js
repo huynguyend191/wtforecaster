@@ -7,6 +7,7 @@ import weatherIconName from '../../../utils/weatherIconName';
 import DailyItem from './DailyItem';
 import {convertTemp} from '../../../utils/convertTemp';
 import { VictoryLine, VictoryChart, VictoryAxis } from 'victory-native';
+import {getDailyDataMax, getDailyDataMin, getDailyLabel} from '../../../utils/getChartData';
 
 class Daily extends Component {
   componentDidMount() {
@@ -34,6 +35,9 @@ class Daily extends Component {
     if (!this.props.loadingDailyWeather ) {
       if (this.props.dailyWeather) {
         const dailyWeather = this.props.dailyWeather;
+        const maxTempData = getDailyDataMax(dailyWeather.dailyForecast, this.props.unit);
+        const minTempData = getDailyDataMin(dailyWeather.dailyForecast, this.props.unit);
+        const chartLabel = getDailyLabel(dailyWeather.dailyForecast);
         displayWeatherInfo = (
           <ScrollView
             refreshControl={
@@ -54,41 +58,32 @@ class Daily extends Component {
             <View style={styles.container} pointerEvents='none'>
               <VictoryChart>
                 <VictoryLine
+                  animate={{
+                    duration: 1000,
+                    onLoad: { duration: 500 }
+                  }}
                   style={{
                     data: { stroke: "white", color: "white" },
                   }}
-                  categories={{x: ["Thu 20/1", "Fri", "Sat", "Sun","Mon", "Tues","wed", "Thu 22/1"]}}
-                  data={[
-                    { x: 1, y: 2 },
-                    { x: 2, y: 3 },
-                    { x: 3, y: 5 },
-                    { x: 4, y: 4 },
-                    { x: 5, y: 7 },
-                    { x: 6, y: 7 },
-                    { x: 7, y: 7 },
-                    { x: 8, y: 7 },
-
-                  ]}
+                  categories={chartLabel}
+                  data={maxTempData}
                 />
                  <VictoryLine
+                  animate={{
+                    duration: 1000,
+                    onLoad: { duration: 500 }
+                  }}
                   style={{
                     data: { stroke: "white", color: "white" },
                   }}
-                  data={[
-                    { x: 1, y: 7 },
-                    { x: 2, y: 9 },
-                    { x: 3, y: 10 },
-                    { x: 4, y: 2 },
-                    { x: 5, y: 4 },
-                    { x: 6, y: 2 },
-                    { x: 7, y: 4 },
-                    { x: 8, y: 7 },
-                  ]}
+                  data={minTempData}
                 />
                 <VictoryAxis
+                  label="Temperature Chart"
                   style={{
                     axis: {stroke: "white"},
-                    tickLabels: {fontSize: 10, fill: "white"}
+                    tickLabels: {fontSize: 10, fill: "white"},
+                    axisLabel: {fontSize: 14, padding: 30, fill:"white"}
                   }}
                 />
                 <VictoryAxis dependentAxis
@@ -212,7 +207,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    marginBottom: 20
   }
 });
 

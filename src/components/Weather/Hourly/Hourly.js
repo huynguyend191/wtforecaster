@@ -7,6 +7,7 @@ import weatherIconName from '../../../utils/weatherIconName';
 import HourlyItem from './HourlyItem';
 import {convertTemp} from '../../../utils/convertTemp';
 import { VictoryLine, VictoryChart, VictoryAxis } from 'victory-native';
+import {getHourlyData, getHourlyLabel} from '../../../utils/getChartData';
 
 class Hourly extends Component {
   componentDidMount() {
@@ -33,13 +34,8 @@ class Hourly extends Component {
     if (!this.props.loadingHourlyWeather ) {
       if (this.props.hourlyWeather) {
         const hourlyWeather = this.props.hourlyWeather;
-        const data = [
-          { quarter: 1, earnings: 13000 },
-          { quarter: 2, earnings: 16500 },
-          { quarter: 3, earnings: 14250 },
-          { quarter: 4, earnings: 19000 }
-        ];
-        
+        const chartData = getHourlyData(hourlyWeather.hourlyForecast.filter((a,i)=>i%2===0), this.props.unit);
+        const chartLabel = getHourlyLabel(hourlyWeather.hourlyForecast.filter((a,i)=>i%2===0));
         displayWeatherInfo = (
           <ScrollView
             refreshControl={
@@ -56,6 +52,35 @@ class Hourly extends Component {
                 <Text style={styles.summary}>{hourlyWeather.hourlySummary}</Text>
                 <WeatherIcon name={weatherIconName[hourlyWeather.hourlyIcon]} size={50} color="white" />
               </View>
+            </View>
+            <View style={styles.container} pointerEvents='none'>
+              <VictoryChart>
+                <VictoryLine
+                  style={{
+                    data: { stroke: "white", color: "white" },
+                  }}
+                  data={chartData}
+                  categories={chartLabel}
+                  animate={{
+                    duration: 1000,
+                    onLoad: { duration: 500 }
+                  }}
+                />
+                <VictoryAxis
+                  label="Temperature Chart"
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"},
+                    axisLabel: {fontSize: 14, padding: 30, fill:"white"}
+                  }}
+                />
+                <VictoryAxis dependentAxis
+                  style={{
+                    axis: {stroke: "white"},
+                    tickLabels: {fontSize: 10, fill: "white"}
+                  }}
+                />
+              </VictoryChart>
             </View>
             <FlatList 
               showsHorizontalScrollIndicator={false}
@@ -77,34 +102,6 @@ class Hourly extends Component {
                 />
               }
             />
-            <View style={styles.container} pointerEvents='none'>
-              <VictoryChart>
-                <VictoryLine
-                  style={{
-                    data: { stroke: "white", color: "white" },
-                  }}
-                  data={[
-                    { x: 1, y: 2 },
-                    { x: 2, y: 3 },
-                    { x: 3, y: 5 },
-                    { x: 4, y: 4 },
-                    { x: 5, y: 7 }
-                  ]}
-                />
-                <VictoryAxis
-                  style={{
-                    axis: {stroke: "white"},
-                    tickLabels: {fontSize: 10, fill: "white"}
-                  }}
-                />
-                <VictoryAxis dependentAxis
-                  style={{
-                    axis: {stroke: "white"},
-                    tickLabels: {fontSize: 10, fill: "white"}
-                  }}
-                />
-              </VictoryChart>
-            </View>
           </ScrollView>
         )
       } else {
@@ -168,7 +165,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     paddingVertical: 15,
     paddingHorizontal: 10,
-    marginBottom: 40
   },
   summaryTitle: {
     color: 'white',
@@ -199,7 +195,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    marginBottom: 20
   }
 });
 
