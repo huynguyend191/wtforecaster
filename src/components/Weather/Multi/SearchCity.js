@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, AsyncStorage} from 'react-native';
 import cityList from '../../../utils/world_coor.json';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class SearchCity extends Component {
   state = {
@@ -52,13 +53,17 @@ class SearchCity extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput        
-          placeholder="Type city name here"        
-          round        
-          onChangeText={text => this.searchFilterFunction(text)}
-          autoCorrect={false}         
-          value={this.state.value}    
-        />   
+        <View style={styles.searchBar}>
+          <Icon name="magnify" color="gray" size={19} />
+          <TextInput        
+            placeholder="Type city name here"        
+            round        
+            onChangeText={text => this.searchFilterFunction(text)}
+            autoCorrect={false}         
+            value={this.state.value}    
+          />   
+        </View>
+       
         <FlatList
           keyExtractor={(item, index) => index.toString()}
           data={this.state.data}
@@ -89,6 +94,11 @@ const styles = StyleSheet.create({
   },
   cityName: {
     fontSize: 14
+  },
+  searchBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 

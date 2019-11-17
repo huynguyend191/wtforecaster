@@ -91,7 +91,7 @@ class Multi extends Component {
         >
           <TouchableOpacity onPress={this.showSearch}> 
             <View style={styles.addLocation}>
-              <Icon name="magnify" color="white" size={19} />
+              <Icon name="plus" color="white" size={19} />
               <Text style={styles.addLocationText}>Add location</Text>
             </View>
           </TouchableOpacity>
